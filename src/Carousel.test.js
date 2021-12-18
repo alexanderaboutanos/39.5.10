@@ -73,3 +73,29 @@ it("works when you click on the left arrow, while on the second image", function
     queryByAltText("Photo by Pratik Patel on Unsplash")
   ).not.toBeInTheDocument();
 });
+
+test("if left arrow is missing on first image", function () {
+  const { queryByTestId, queryByAltText, toBeInTheDocument } = render(
+    <Carousel />
+  );
+
+  expect(queryByTestId("left-arrow")).not.toBeInTheDocument();
+});
+
+test("if right arrow is missing on last image", function () {
+  const { queryByTestId, toBeInTheDocument, debug } = render(<Carousel />);
+
+  // move forward in the carousel
+  const rightArrow = queryByTestId("right-arrow");
+
+  // get the total num of cards
+  // ???
+
+  // move to the end of the cards
+  fireEvent.click(rightArrow);
+  fireEvent.click(rightArrow);
+
+  expect(queryByTestId("right-arrow")).not.toBeInTheDocument();
+});
+
+//HELP FROM JASMEET. I want to be able to go to the end of the number of cards. I don't just want to hit the 'right button' twice, because that only works if the total number of images is 3.
